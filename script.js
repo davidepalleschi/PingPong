@@ -70,7 +70,6 @@ function updateTable() {
     // Crea un nuovo pulsante HTML per incrementare il punteggio del giocatore
  
     let incButton=document.createElement("button");
-    console.log(incButton)
     incButton.innerHTML = "Vittoria";
     
     // Aggiungi un listener per il click del pulsante, quindi aggiorna il punteggio del giocatore, salva i dati nel localStorage e aggiorna la tabella
@@ -115,65 +114,6 @@ function updateTable() {
   }
 }
 
-// Aggiungi un listener per il click del pulsante "
-
-// function updateTable() {
-//   let playersData = localStorage.getItem("players");
-//   if (playersData !== null) {
-//     players = JSON.parse(playersData);
-//   }
-//   //players.sort(function(a, b) {
-//   //  return b.score - a.score;
-//   //});
-//   let table = document.getElementById("scoreTable");
-//   let headerRow = table.querySelector("thead tr");
-//   let body = table.querySelector("tbody");
-//   body.innerHTML = "";
-
-//   for (let i = 0; i < players.length; i++) {
-//     let player = players[i];
-//     console.log(player)
-//     let row = document.createElement("tr");
-//     let nameCell = document.createElement("td");
-//     let scoreCell = document.createElement("td");
-//     let actionsCell = document.createElement("td");
-
-//     nameCell.textContent = player.name;
-//     scoreCell.textContent = player.score;
-//     scoreCell.classList.add("score");
-    
-//     // Aggiungiamo un pulsante per incrementare il punteggio del giocatore
-//     let incButton = document.createElement("button");
-//     incButton.innerHTML = "+";
-//     incButton.addEventListener("click", function() {
-//       console.log(players.length)
-//       console.log(player)
-//       player.score++;
-//       localStorage.setItem("players", JSON.stringify(players));
-//       updateTable();
-//     });
-
-//     actionsCell.appendChild(incButton);
-
-//     let decButton = document.createElement("button");
-//     decButton.textContent = "-";
-//     decButton.addEventListener("click", function() {
-//       if (player.score > 0) {
-//         console.log(player)
-//         player.score--;
-//         localStorage.setItem("players", JSON.stringify(players));
-//         updateTable();
-//       }
-//     });
-//     actionsCell.appendChild(decButton);
-
-//     row.appendChild(nameCell);
-//     row.appendChild(scoreCell);
-//     row.appendChild(actionsCell);
-//     body.appendChild(row);
-//   }
-// }
-
 let addButton = document.getElementById("addButton");
 addButton.addEventListener("click", addPlayer);
 
@@ -188,12 +128,10 @@ playerNameInput.addEventListener("keyup", function(event) {
 updateTable();
 
 function removePlayer(playerName) {
-  console.log("Removing player: " + playerName); // Debugging line
   let playersData = localStorage.getItem("players");
   if (playersData !== null) {
     players = JSON.parse(playersData);
     for (let i = 0; i < players.length; i++) {
-      console.log(players[i])
       if (players[i].name === playerName) {
         players.splice(i, 1); // rimuovi il giocatore dall'array
         localStorage.setItem("players", JSON.stringify(players)); // aggiorna lo storage locale
@@ -203,6 +141,28 @@ function removePlayer(playerName) {
     }
   }
 }
+
+function addScore() {
+  // ...
+  // Aggiungere lo score alla tabella dei punteggi totali
+  // ...
+
+  // Aggiungere lo score alla tabella dei punteggi giornalieri
+  const dailyScoresTable = document.getElementById("daily-scores");
+  const date = new Date();
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const year = date.getFullYear();
+  const formattedDate = `${day}/${month}/${year}`;
+  const row = dailyScoresTable.insertRow();
+  const dateCell = row.insertCell(0);
+  const playerCell = row.insertCell(1);
+  const scoreCell = row.insertCell(2);
+  dateCell.textContent = formattedDate;
+  playerCell.textContent = name;
+  scoreCell.textContent = score;
+}
+
 
 // function addScore(player) {
 // 	player.score++;
