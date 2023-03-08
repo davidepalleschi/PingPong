@@ -10,7 +10,10 @@ function addPlayer() {
       score: 0
     };
     let playersData = localStorage.getItem("players");
-    let players = JSON.parse(playersData);
+    if (playersData !== null) {
+        players = JSON.parse(playersData);
+    }
+    
     players.push(newPlayer);
     // Salva i dati dei giocatori nel localStorage
     localStorage.setItem("players", JSON.stringify(players));
@@ -24,8 +27,9 @@ function updateTable() {
   let playersData = localStorage.getItem("players");
   
   // Se i dati dei giocatori esistono, convertili in un array di oggetti JavaScript e salvalo nella letiabile players
-  let players = JSON.parse(playersData);
-  
+  if (playersData !== null) {
+    players = JSON.parse(playersData);
+  }
   players.sort(function(a, b) {
     return b.score - a.score;
   });
@@ -187,7 +191,7 @@ function removePlayer(playerName) {
   console.log("Removing player: " + playerName); // Debugging line
   let playersData = localStorage.getItem("players");
   if (playersData !== null) {
-    var players = JSON.parse(playersData);
+    players = JSON.parse(playersData);
     for (let i = 0; i < players.length; i++) {
       console.log(players[i])
       if (players[i].name === playerName) {
