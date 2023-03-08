@@ -1,5 +1,5 @@
 var players = [];
-
+import data from './data.json' assert { type: 'json' };
 function addPlayer() {
   let playerNameInput = document.getElementById("playerName");
   let playerName = playerNameInput.value.trim();
@@ -9,14 +9,11 @@ function addPlayer() {
       name: playerName,
       score: 0
     };
-    let playersData = localStorage.getItem("players");
-    if (playersData !== null) {
-        players = JSON.parse(playersData);
-    }
+    let players = data.players;
     
-    players.push(newPlayer);
+    //players.push(newPlayer);
     // Salva i dati dei giocatori nel localStorage
-    localStorage.setItem("players", JSON.stringify(players));
+    data.players.push(newPlayer)
     updateTable();
     playerNameInput.value = "";
   }
@@ -24,12 +21,9 @@ function addPlayer() {
 
 function updateTable() {
   // Recupera i dati dei giocatori dal localStorage del browser e li salva nella letiabile playersData
-  let playersData = localStorage.getItem("players");
   
   // Se i dati dei giocatori esistono, convertili in un array di oggetti JavaScript e salvalo nella letiabile players
-  if (playersData !== null) {
-    players = JSON.parse(playersData);
-  }
+  players = data.players
   players.sort(function(a, b) {
     return b.score - a.score;
   });
@@ -128,9 +122,7 @@ playerNameInput.addEventListener("keyup", function(event) {
 updateTable();
 
 function removePlayer(playerName) {
-  let playersData = localStorage.getItem("players");
-  if (playersData !== null) {
-    players = JSON.parse(playersData);
+    players = data.players
     for (let i = 0; i < players.length; i++) {
       if (players[i].name === playerName) {
         players.splice(i, 1); // rimuovi il giocatore dall'array
@@ -140,7 +132,6 @@ function removePlayer(playerName) {
       }
     }
   }
-}
 
 function addScore() {
   // ...
